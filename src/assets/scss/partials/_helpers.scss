@@ -1,0 +1,44 @@
+@import './variables';
+
+// Flex helpers
+// Justify
+@each $j in space-evenly, space-around {
+  .justify-#{$j} {
+    justify-content: $j;
+  }
+}
+// Gap
+@for $g from 0 to 10 {
+  .gap-#{$g} {
+    gap: $g * 1%;
+  }
+}
+
+// Cursor
+@each $c in pointer, default {
+  .cursor-#{$c} {
+    cursor: $c;
+  }
+}
+
+// Shadow
+.shadow {
+  box-shadow: $box-shadow !important;
+}
+
+.gradient {
+  background: $gradient !important;
+}
+
+// Prevent user from selecting
+.no-select {
+  pointer-events: none;
+  user-select: none;
+}
+
+// Width & Height
+@each $s in width, height {
+  .#{$s}-100 {
+    #{$s}: 100% !important;
+  }
+}
