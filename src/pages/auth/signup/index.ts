@@ -1,7 +1,7 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
-  layout: 'guest'
+  layout: 'auth'
 })
 export default class SignupView extends Vue {
   signupData = {
@@ -19,8 +19,10 @@ export default class SignupView extends Vue {
 
       await auth.createUserWithEmailAndPassword(email, password);
       await auth.currentUser?.updateProfile({ displayName });
+
+      this.$router.push('/dashboard');
     } catch (e) {
-      console.log(e);
+      this.$alert.show((e as any).message, 'error');
     } finally {
       this.$nuxt.$loading.finish();
     }

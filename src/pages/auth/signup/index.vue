@@ -1,38 +1,32 @@
 <template>
-  <v-container class="fill-height">
-    <v-row justify="center" align="center">
-      <v-col cols="12" md="4">
-        <v-card class="rounded-xl shadow pa-5">
-          <h1 class="mb-3 primary--text">Signup</h1>
-          <base-form #default="{ invalid }" @submit="signup">
-            <v-row dense>
-              <v-col cols="12">
-                <base-text-field v-model="signupData.displayName" label="Display Name" rules="required" autofocus />
-              </v-col>
-              <v-col cols="12">
-                <base-text-field v-model="signupData.email" label="Email" rules="required|email" />
-              </v-col>
-              <v-col cols="12">
-                <base-text-field
-                  v-model="signupData.password"
-                  label="Password"
-                  type="password"
-                  rules="required|min:8|max:36"
-                />
-              </v-col>
-              <v-col cols="12">
-                <base-btn :disabled="invalid" block type="submit">Signup</base-btn>
-              </v-col>
-            </v-row>
-          </base-form>
-          <p class="text-center ma-0 mt-5">
-            Already have an account?
-            <nuxt-link to="/auth/login">Login</nuxt-link>
-          </p>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-card class="rounded-xl shadow pa-5">
+    <h1 class="mb-3 primary--text">Signup</h1>
+    <base-form #default="{ invalid }" @submit="signup">
+      <v-row dense>
+        <v-col cols="12">
+          <base-text-field v-model="signupData.displayName" label="Display Name" rules="required" autofocus />
+        </v-col>
+        <v-col cols="12">
+          <base-text-field v-model="signupData.email" label="Email" rules="required|email" />
+        </v-col>
+        <v-col cols="12">
+          <base-text-field
+            v-model="signupData.password"
+            label="Password"
+            type="password"
+            rules="required|min:8|max:36"
+          />
+        </v-col>
+        <v-col cols="12">
+          <base-btn :disabled="invalid" block type="submit">Signup</base-btn>
+        </v-col>
+      </v-row>
+    </base-form>
+    <p class="text-center ma-0 mt-5">
+      Already have an account?
+      <nuxt-link to="/auth/login">Login</nuxt-link>
+    </p>
+  </v-card>
 </template>
 
 <script lang="ts" src="./index.ts" />

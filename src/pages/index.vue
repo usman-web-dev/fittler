@@ -8,8 +8,8 @@
               <nuxt-link to="/" class="white--text font-weight-bold">Fittler</nuxt-link>
             </v-toolbar-title>
             <v-spacer />
-            <div v-if="false">
-              <base-btn text color="white" small to="/">Profile</base-btn>
+            <div v-if="$fire.auth.currentUser">
+              <base-btn text color="white" small to="/dashboard">Profile</base-btn>
             </div>
             <div v-else>
               <base-btn text color="white" small class="mr-1" to="/auth/login">Login</base-btn>
@@ -26,7 +26,14 @@
                 If we could give every individual the right amount of nourishment and exercise, not too little and not
                 too much, we would have found the safest way to health.
               </p>
-              <base-btn large color="white" elevation="0" class="font-weight-bold view-dashboard-btn" outlined>
+              <base-btn
+                large
+                color="white"
+                elevation="0"
+                class="font-weight-bold view-dashboard-btn"
+                outlined
+                to="/dashboard"
+              >
                 View Dashboard
                 <v-icon class="ml-1">mdi-arrow-right</v-icon>
               </base-btn>
@@ -99,7 +106,7 @@ import { Component, Vue } from 'nuxt-property-decorator';
 @Component({
   layout: 'guest'
 })
-export default class extends Vue {
+export default class HomeView extends Vue {
   contactDetails = [
     {
       title: 'Customer Support',

@@ -30,7 +30,7 @@ const config: NuxtConfig = {
 
   css: ['@/assets/scss/index.scss'],
 
-  plugins: ['~/plugins/vee-validate', '~/plugins/helpers'],
+  plugins: ['~/plugins/vee-validate', '~/plugins/helpers', '~/plugins/alert'],
 
   srcDir: 'src',
 
@@ -45,6 +45,14 @@ const config: NuxtConfig = {
 
   modules: ['@nuxtjs/firebase'],
 
+  router: {
+    prefetchLinks: false
+  },
+
+  render: {
+    resourceHints: false
+  },
+
   firebase: {
     config: {
       apiKey: process.env.FIREBASE_API_KEY!,
@@ -56,7 +64,12 @@ const config: NuxtConfig = {
       measurementId: process.env.FIREBASE_MEASUREMENT_ID!
     },
     services: {
-      auth: true,
+      auth: {
+        initialize: {
+          onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
+          onAuthStateChangedAction: 'onAuthStateChangedAction'
+        }
+      },
       firestore: true
     }
   },

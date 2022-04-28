@@ -1,7 +1,7 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
-  layout: 'guest'
+  layout: 'auth'
 })
 export default class LoginView extends Vue {
   loginData = {
@@ -16,8 +16,10 @@ export default class LoginView extends Vue {
       const { email, password } = this.loginData;
 
       await this.$fire.auth.signInWithEmailAndPassword(email, password);
+
+      this.$router.push('/dashboard');
     } catch (e) {
-      console.log(e);
+      this.$alert.show((e as any).message, 'error');
     } finally {
       this.$nuxt.$loading.finish();
     }

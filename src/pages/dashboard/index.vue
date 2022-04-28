@@ -1,0 +1,13 @@
+<template>
+  <div>
+    <h1>Ahahahaha</h1>
+    <base-btn
+      @click="
+        $fire.auth.signOut();
+        $router.push('/auth/login');
+      "
+    >
+      Logout
+    </base-btn>
+  </div>
+</template>
