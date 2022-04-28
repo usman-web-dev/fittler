@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@nuxtjs/firebase": "^8.2.2",
+    "class-transformer": "^0.5.1",
     "core-js": "^3.19.3",
     "firebase": "^9.6.11",
     "nuxt": "^2.15.8",

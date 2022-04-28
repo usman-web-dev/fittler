@@ -30,7 +30,7 @@ const config: NuxtConfig = {
 
   css: ['@/assets/scss/index.scss'],
 
-  plugins: ['~/plugins/vee-validate', '~/plugins/helpers', '~/plugins/alert'],
+  plugins: ['~/plugins/vee-validate', '~/plugins/helpers', '~/plugins/alert', '~/plugins/api'],
 
   srcDir: 'src',
 

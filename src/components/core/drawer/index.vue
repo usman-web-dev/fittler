@@ -1,45 +1,51 @@
 <template>
-  <v-navigation-drawer
-    color="secondary"
-    app
-    dark
-    :mini-variant="drawerSrv.miniVariant"
-    floating
-    v-model="drawerSrv.mode"
-    mobile-breakpoint="959"
-  >
-    <v-list-item class="px-0">
-      <v-list-item-content>
-        <v-list-item-title>
-          <v-img
-            :src="`/svgs/${!drawerSrv.miniVariant ? 'edu-' : ''}x.svg`"
-            contain
-            :height="!drawerSrv.miniVariant ? 60 : 40"
-          />
-        </v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
+  <v-navigation-drawer app dark floating v-model="drawerSrv.mode" mobile-breakpoint="959" color="gradient shadow">
+    <div class="drawer-top py-5 text-center">
+      <v-avatar size="70">
+        <v-img src="/images/user.png" />
+      </v-avatar>
+      <div />
+      <v-badge color="success" dot offset-y="8" offset-x="-3">
+        <h2 class="white--text">{{ currentUser.displayName }}</h2>
+      </v-badge>
+      <h5 class="blue-grey--text text--lighten-4 mt-n1">{{ currentUser.email }}</h5>
+    </div>
 
-    <v-list dense>
-      <v-list-item v-for="item in drawerSrv.links" :key="item.title" nuxt :to="{ name: item.link }" class="mb-2" exact>
-        <base-tooltip
-          :msg="drawerSrv.miniVariant ? item.title : ''"
-          #default="{ on }"
-          direction="right"
-          color="primary"
-          transition="slide-x-reverse-transition"
-          content-class="ml-2"
-        >
-          <v-list-item-icon class="mr-3" v-on="drawerSrv.miniVariant ? on : undefined">
-            <v-icon>{{ $route.name === item.link ? item.selectedIcon : item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </base-tooltip>
+    <v-list dense nav>
+      <v-list-item
+        v-for="{ title, icon, selectedIcon, link } in drawerSrv.links"
+        :key="title"
+        nuxt
+        :to="{ name: link }"
+        exact
+      >
+        <v-list-item-icon class="mr-3">
+          <v-icon>{{ $route.name === link ? selectedIcon : icon }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>{{ title }}</v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-action class="ma-0 pa-0">
+          <v-icon size="20" class="ml-1">mdi-chevron-right</v-icon>
+        </v-list-item-action>
       </v-list-item>
     </v-list>
+
+    <template #append>
+      <div class="pa-3">
+        <base-btn
+          block
+          color="white primary--text"
+          @click="
+            $fire.auth.signOut();
+            $router.push('/auth/login');
+          "
+        >
+          Logout
+          <v-icon class="ml-1" size="18">mdi-logout</v-icon>
+        </base-btn>
+      </div>
+    </template>
   </v-navigation-drawer>
 </template>
 
