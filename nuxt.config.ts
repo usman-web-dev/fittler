@@ -34,6 +34,8 @@ const config: NuxtConfig = {
 
   srcDir: 'src',
 
+  loading: '@/components/shared/loading/index.vue',
+
   components: [
     { path: '@/components/', extensions: ['vue'] },
     { path: '@/components/shared/', extensions: ['vue'] }

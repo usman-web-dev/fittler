@@ -12,8 +12,8 @@
               <base-btn text color="white" small to="/">Profile</base-btn>
             </div>
             <div v-else>
-              <base-btn text color="white" small class="mr-1" to="/login">Login</base-btn>
-              <base-btn text color="white" small to="/signup">Signup</base-btn>
+              <base-btn text color="white" small class="mr-1" to="/auth/login">Login</base-btn>
+              <base-btn text color="white" small to="/auth/signup">Signup</base-btn>
             </div>
           </v-toolbar>
           <v-row justify="center" align="center" style="height: 40em">
@@ -96,7 +96,9 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 
-@Component
+@Component({
+  layout: 'guest'
+})
 export default class extends Vue {
   contactDetails = [
     {
