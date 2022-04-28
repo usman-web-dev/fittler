@@ -5,6 +5,7 @@ class DrawerService extends BaseService {
 
   links = [
     { title: 'Dashboard', icon: 'mdi-monitor', selectedIcon: 'mdi-monitor-dashboard', link: 'dashboard' },
+    { title: 'Leaderboard', icon: 'mdi-run', selectedIcon: 'mdi-run-fast', link: 'leaderboard' },
     { title: 'Profile', icon: 'mdi-account-circle-outline', selectedIcon: 'mdi-account-circle', link: 'profile' }
   ];
 }

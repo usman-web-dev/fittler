@@ -9,6 +9,7 @@
       @blur="$emit('input', !!value && $attrs['type'] !== 'password' ? value.trim() : value)"
       :outlined="outlined"
       dense
+      hide-details="auto"
     >
       <template #label v-if="!!$attrs.label">
         <span class="error--text" v-if="rules.includes('required')">*</span>

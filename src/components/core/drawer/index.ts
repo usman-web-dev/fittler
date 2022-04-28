@@ -6,6 +6,6 @@ export default class CoreDrawer extends Vue {
   drawerSrv = drawerSrv;
 
   get currentUser() {
-    return this.$fire.auth.currentUser ?? ({} as any);
+    return this.$store.state.user ?? ({} as any);
   }
 }

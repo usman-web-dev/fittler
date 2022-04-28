@@ -2,9 +2,14 @@
   <v-app>
     <lazy-core-app-bar />
     <lazy-core-drawer />
+    <lazy-alert />
 
     <v-main>
-      <nuxt />
+      <v-container fluid class="px-5">
+        <v-slide-y-reverse-transition hide-on-leave>
+          <nuxt />
+        </v-slide-y-reverse-transition>
+      </v-container>
     </v-main>
   </v-app>
 </template>

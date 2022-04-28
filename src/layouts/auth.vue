@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <alert />
+    <lazy-alert />
 
     <v-main class="gradient">
       <v-container class="fill-height">
