@@ -20,7 +20,7 @@ export default class SignupView extends Vue {
       await auth.createUserWithEmailAndPassword(email, password);
       await auth.currentUser?.updateProfile({ displayName });
 
-      this.$router.push('/dashboard');
+      this.$router.push('/leaderboard');
     } catch (e) {
       this.$alert.show((e as any).message, 'error');
     } finally {

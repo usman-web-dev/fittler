@@ -1,4 +1,10 @@
-class Helpers {
+import { FirebaseError } from '@firebase/util';
+import { Context } from '@nuxt/types';
+import { FIREBASE_ERROR_MESSAGES } from '~/utils';
+
+export class Helpers {
+  constructor(private $context: Context) {}
+
   upperFirst(text?: string) {
     return (text?.charAt(0).toUpperCase() ?? '') + text?.slice(1);
   }
@@ -22,6 +28,8 @@ class Helpers {
       .toLowerCase()
       .replace(/(?:^|\s|-)\S/g, x => x.toUpperCase());
   }
-}
 
-export const helpers = new Helpers();
+  handleFirebaseError(e: any) {
+    this.$context.$alert.show(FIREBASE_ERROR_MESSAGES[(e as FirebaseError).code], 'error');
+  }
+}

@@ -16,6 +16,13 @@
 
 <script>
 export default {
-  middleware: 'auth'
+  middleware: 'auth',
+  head() {
+    const { name } = this.$route;
+
+    return {
+      title: this.$helpers.upperFirst(this.$helpers.unslugify(name))
+    };
+  }
 };
 </script>

@@ -9,7 +9,7 @@
             </v-toolbar-title>
             <v-spacer />
             <div v-if="$fire.auth.currentUser">
-              <base-btn text color="white" small to="/dashboard">Profile</base-btn>
+              <base-btn text color="white" small to="/profile">Profile</base-btn>
             </div>
             <div v-else>
               <base-btn text color="white" small class="mr-1" to="/auth/login">Login</base-btn>
@@ -30,11 +30,11 @@
                 large
                 color="white"
                 elevation="0"
-                class="font-weight-bold view-dashboard-btn"
+                class="font-weight-bold view-leaderboard-btn"
                 outlined
-                to="/dashboard"
+                to="/leaderboard"
               >
-                View Dashboard
+                View Leaderboard
                 <v-icon class="ml-1">mdi-arrow-right</v-icon>
               </base-btn>
             </v-col>
@@ -104,7 +104,10 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
-  layout: 'guest'
+  layout: 'guest',
+  head: {
+    title: 'Home'
+  }
 })
 export default class HomeView extends Vue {
   contactDetails = [
@@ -145,7 +148,7 @@ export default class HomeView extends Vue {
         padding-right: 0px !important;
       }
     }
-    .view-dashboard-btn {
+    .view-leaderboard-btn {
       transition: all 0.3s ease-in-out;
       &:hover i {
         margin-left: 20px !important;

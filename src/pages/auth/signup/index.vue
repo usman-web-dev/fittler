@@ -2,9 +2,9 @@
   <v-card class="rounded-xl shadow pa-5">
     <h1 class="mb-3 primary--text">Signup</h1>
     <base-form #default="{ invalid }" @submit="signup">
-      <v-row dense>
+      <v-row>
         <v-col cols="12">
-          <base-text-field v-model="signupData.displayName" label="Display Name" rules="required" autofocus />
+          <base-text-field v-model="signupData.displayName" label="Display Name" rules="required|max:30" autofocus />
         </v-col>
         <v-col cols="12">
           <base-text-field v-model="signupData.email" label="Email" rules="required|email" />

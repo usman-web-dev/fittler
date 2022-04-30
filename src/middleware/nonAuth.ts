@@ -7,7 +7,7 @@ const nonAuth: Middleware = ({
   redirect
 }) => {
   if (currentUser) {
-    redirect('/dashboard');
+    redirect('/leaderboard');
   }
 };
 

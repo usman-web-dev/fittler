@@ -1,8 +1,8 @@
 import { Plugin } from '@nuxt/types';
-import { helpers } from './helpers';
+import { Helpers } from './helpers';
 
 interface Props {
-  $helpers: typeof helpers;
+  $helpers: Helpers;
 }
 
 declare module 'vue/types/vue' {
@@ -14,8 +14,8 @@ declare module '@nuxt/types' {
   interface Context extends Props {}
 }
 
-const helper: Plugin = (_, inject) => {
-  inject('helpers', helpers);
+const helper: Plugin = (ctx, inject) => {
+  inject('helpers', new Helpers(ctx));
 };
 
 export default helper;

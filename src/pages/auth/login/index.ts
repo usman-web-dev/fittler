@@ -17,7 +17,7 @@ export default class LoginView extends Vue {
 
       await this.$fire.auth.signInWithEmailAndPassword(email, password);
 
-      this.$router.push('/dashboard');
+      this.$router.push('/leaderboard');
     } catch (e) {
       this.$alert.show((e as any).message, 'error');
     } finally {
