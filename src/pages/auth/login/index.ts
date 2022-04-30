@@ -19,7 +19,7 @@ export default class LoginView extends Vue {
 
       this.$router.push('/leaderboard');
     } catch (e) {
-      this.$alert.show((e as any).message, 'error');
+      this.$helpers.handleFirebaseError(e);
     } finally {
       this.$nuxt.$loading.finish();
     }

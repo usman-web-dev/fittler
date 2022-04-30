@@ -175,7 +175,7 @@ export const FIREBASE_ERROR_MESSAGES: Record<string, string> = {
   'auth/unsupported-tenant-operation': 'This operation is not supported in a multi-tenant context.',
   'auth/unverified-email': 'The operation requires a verified email.',
   'auth/user-cancelled': 'The user did not grant your application the permissions it requested.',
-  'auth/user-not-found': 'There is no user record corresponding to this identifier. The user may have been deleted.',
+  'auth/user-not-found': 'The email is invalid.',
   'auth/user-disabled': 'The user account has been disabled by an administrator.',
   'auth/user-mismatch': 'The supplied credentials do not correspond to the previously signed in user.',
   'auth/weak-password': 'The password must be 6 characters long or more.',
