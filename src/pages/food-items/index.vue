@@ -1,38 +1,40 @@
 <template>
   <div>
-    <div v-if="selectedFoodItems.length">
-      <h1>Added Food Items</h1>
+    <v-slide-x-transition hide-on-leave>
+      <div v-if="selectedFoodItems.length">
+        <h1>Added Food Items</h1>
 
-      <v-col
-        cols="12"
-        v-for="({ name, quantity, calories, unit, id }, idx) in selectedFoodItems"
-        :key="id"
-        class="pa-0 pb-3"
-      >
-        <v-card class="shadow rounded-xl gradient" dark>
-          <div class="pa-5 d-flex align-center justify-space-between flex-wrap">
-            <div class="d-flex flex-column">
-              <h2>{{ name }}</h2>
-              <span>
-                {{ calories }} X
-                <span class="font-weight-black">{{ quantity }} {{ unit }}</span>
-                = {{ calories * quantity }} calories
-              </span>
+        <v-col
+          cols="12"
+          v-for="({ name, quantity, calories, unit, id }, idx) in selectedFoodItems"
+          :key="id"
+          class="pa-0 pb-3"
+        >
+          <v-card class="shadow rounded-xl gradient" dark>
+            <div class="pa-5 d-flex align-center justify-space-between flex-wrap">
+              <div class="d-flex flex-column">
+                <h2>{{ name }}</h2>
+                <span>
+                  {{ calories }} X
+                  <span class="font-weight-black">{{ quantity }} {{ unit }}</span>
+                  = {{ calories * quantity }} calories
+                </span>
+              </div>
+              <div class="d-flex align-center">
+                <v-icon @click="selectedFoodItems[idx].quantity++"> mdi-plus </v-icon>
+                <h3 class="mx-2 no-select">{{ quantity }}</h3>
+                <v-icon @click="selectedFoodItems[idx].quantity--" :disabled="quantity < 2"> mdi-minus </v-icon>
+              </div>
+              <base-btn text color="white" @click="selectedFoodItems.splice(idx, 1)">
+                <v-icon>mdi-delete-outline</v-icon>Remove
+              </base-btn>
             </div>
-            <div class="d-flex align-center">
-              <v-icon @click="selectedFoodItems[idx].quantity++"> mdi-plus </v-icon>
-              <h3 class="mx-2 no-select">{{ quantity }}</h3>
-              <v-icon @click="selectedFoodItems[idx].quantity--" :disabled="quantity < 2"> mdi-minus </v-icon>
-            </div>
-            <base-btn text color="white" @click="selectedFoodItems.splice(idx, 1)">
-              <v-icon>mdi-delete-outline</v-icon>Remove
-            </base-btn>
-          </div>
-        </v-card>
-      </v-col>
+          </v-card>
+        </v-col>
 
-      <v-divider class="my-5" />
-    </div>
+        <v-divider class="my-5" />
+      </div>
+    </v-slide-x-transition>
 
     <h1 class="mb-3">Food Items List</h1>
     <v-row>

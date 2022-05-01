@@ -70,7 +70,8 @@ const config: NuxtConfig = {
           onAuthStateChangedAction: 'onAuthStateChangedAction'
         }
       },
-      firestore: true
+      firestore: true,
+      storage: true
     }
   },
 

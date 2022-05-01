@@ -1,8 +1,8 @@
 <template>
   <v-navigation-drawer app dark floating v-model="drawerSrv.mode" mobile-breakpoint="959" color="gradient shadow">
     <div class="drawer-top py-5 text-center">
-      <v-avatar size="70">
-        <v-img src="/images/user.png" />
+      <v-avatar color="grey lighten-2" size="70">
+        <v-img :src="currentUser.photoURL" contain />
       </v-avatar>
       <div />
       <v-badge color="success" dot offset-y="8" offset-x="-3">

@@ -18,6 +18,9 @@
           />
         </v-col>
         <v-col cols="12">
+          <base-file-input v-model="signupData.photo" label="Profile Picture" rules="image:jpg,png,jpeg" />
+        </v-col>
+        <v-col cols="12">
           <base-btn :disabled="invalid" block type="submit">Signup</base-btn>
         </v-col>
       </v-row>

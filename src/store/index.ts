@@ -1,7 +1,7 @@
 import { ActionContext } from 'vuex';
 
 interface State {
-  user: { uid: string; email: string; displayName: string } | null;
+  user: { uid: string; email: string; displayName: string; photoURL: string | null } | null;
 }
 
 export const state = (): State => ({
@@ -13,8 +13,8 @@ export const mutations = {
     if (!authUser) {
       state.user = null;
     } else {
-      const { uid, email, displayName } = (authUser as State['user'])!;
-      state.user = { uid, email, displayName };
+      const { uid, email, displayName, photoURL } = (authUser as State['user'])!;
+      state.user = { uid, email, displayName, photoURL };
     }
   }
 };

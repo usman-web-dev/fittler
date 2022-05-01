@@ -1,5 +1,5 @@
 import { extend } from 'vee-validate';
-import { confirmed, email, max, min, required } from 'vee-validate/dist/rules';
+import { confirmed, email, ext, max, min, required } from 'vee-validate/dist/rules';
 
 extend('required', {
   ...required,
@@ -29,4 +29,9 @@ extend('min', {
 extend('confirmed', {
   ...confirmed,
   message: "{target} confirmation doesn't match!"
+});
+
+extend('image', {
+  ...ext,
+  message: 'The file must be an image (jpg/png/jpeg)'
 });

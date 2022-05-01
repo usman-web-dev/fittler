@@ -6,22 +6,22 @@ export default class ProfileComponent extends Vue {
   displayName = this._displayName;
   oldDisplayName = this._displayName;
   password = '';
+  photo: File | null = null;
+  addNewPhoto = false;
 
   get _displayName() {
     return this.$fire.auth.currentUser?.displayName;
   }
 
+  photoURL = this.$fire.auth.currentUser?.photoURL;
+
   async updateProfile() {
     const { currentUser: user } = this.$fire.auth;
-    if (user) {
+    if (user?.email) {
       this.$nuxt.$loading.start();
 
       try {
-        if (this.oldDisplayName !== this.displayName) {
-          await user.updateProfile({
-            displayName: this.displayName
-          });
-        }
+        const { email, uid } = user;
 
         if (this.password) {
           const currPass = prompt('Enter your current password');
@@ -32,23 +32,70 @@ export default class ProfileComponent extends Vue {
             return;
           }
 
-          await user.reauthenticateWithCredential(EmailAuthProvider.credential(user.email!, currPass));
+          await user.reauthenticateWithCredential(EmailAuthProvider.credential(email!, currPass));
           await user.updatePassword(this.password);
         }
 
-        const { email, uid } = user;
+        if (this.photo) {
+          const ref = this.$fire.storage
+            .ref()
+            .child(`profile-pics/${uid}.${this.photo.name.split('.').pop()}`)
+            .put(this.photo);
 
-        this.$store.dispatch('onAuthStateChangedAction', { authUser: { email, uid, displayName: this.displayName } });
+          ref.on(
+            'state_changed',
+            undefined,
+            () => {
+              this.$alert.show('Something went wrong while uploading the profile picture.', 'error');
+            },
+            async () => {
+              const photoURL = await ref.snapshot.ref.getDownloadURL();
 
-        this.password = '';
-        this.oldDisplayName = this.displayName;
+              this.photoURL = photoURL;
 
-        this.$alert.show('Profile has been updated successfully!');
+              await Promise.all([
+                user.updateProfile({
+                  displayName: this.displayName,
+                  photoURL
+                }),
+                this.$fire.firestore.collection('/users').doc(uid).update({
+                  displayName: this.displayName,
+                  photoUrl: photoURL
+                })
+              ]);
+
+              this.updateUser(email, uid);
+            }
+          );
+        } else if (this.oldDisplayName !== this.displayName) {
+          await Promise.all([
+            user.updateProfile({
+              displayName: this.displayName
+            }),
+            this.$fire.firestore.collection('/users').doc(uid).update({
+              displayName: this.displayName
+            })
+          ]);
+
+          this.updateUser(email, uid);
+        }
       } catch (e) {
         this.$helpers.handleFirebaseError(e);
-      } finally {
-        this.$nuxt.$loading.finish();
       }
     }
+  }
+
+  updateUser(email: string, uid: string) {
+    this.$store.dispatch('onAuthStateChangedAction', {
+      authUser: { email, uid, displayName: this.displayName, photoURL: this.photoURL }
+    });
+
+    this.password = '';
+    this.oldDisplayName = this.displayName;
+    this.photo = null;
+    this.addNewPhoto = false;
+
+    this.$alert.show('Profile has been updated successfully!');
+    this.$nuxt.$loading.finish();
   }
 }

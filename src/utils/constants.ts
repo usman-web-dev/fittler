@@ -386,3 +386,6 @@ export const FOOD_ITEMS: Array<FoodItem> = [
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi minima eligendi, ea, quas amet impedit porro velit expedita dolor beatae voluptas ducimus possimus exercitationem id aliquid suscipit accusamus enim laudantium?'
   }
 ];
+
+export const DUMMY_IMAGE =
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1gviNqoTft8qOllju-I8sFySXgrSVEqoPYg&usqp=CAU';
