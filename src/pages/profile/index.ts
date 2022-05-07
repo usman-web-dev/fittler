@@ -32,7 +32,6 @@ export default class ProfileComponent extends Vue {
       this.addNewPhoto = false;
       this.$alert.show('Profile has been updated successfully!');
     } catch (e) {
-      console.log(e);
       this.$helpers.handleFirebaseError(e);
     } finally {
       this.$nuxt.$loading.finish();
