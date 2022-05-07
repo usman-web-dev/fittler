@@ -66,8 +66,8 @@ const config: NuxtConfig = {
     services: {
       auth: {
         initialize: {
-          onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
-          onAuthStateChangedAction: 'onAuthStateChangedAction'
+          onAuthStateChangedMutation: 'SET_LOGGED_IN',
+          onAuthStateChangedAction: 'setLoggedIn'
         }
       },
       firestore: true,

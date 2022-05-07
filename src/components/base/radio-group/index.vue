@@ -1,22 +1,23 @@
 <template>
-  <validation-provider :rules="rules" v-slot="{ errors }" :vid="vid">
-    <v-file-input
+  <validation-provider :rules="rules" #default="{ errors }">
+    <v-radio-group
+      class="pt-0 mt-0"
       :error-messages="errors"
       v-bind="$attrs"
       v-on="$listeners"
       :value="value"
+      :input-value="value"
+      row
       @change="$emit('input', $event)"
-      :outlined="outlined"
-      dense
-      prepend-icon=""
-      prepend-inner-icon="mdi-attachment"
     >
+      <v-radio v-for="item in items" :key="item.id" :label="item.value" :value="item.id" />
+
       <template #label v-if="!!$attrs.label">
         <span class="error--text" v-if="rules.includes('required')">*</span>
         {{ $attrs.label }}
       </template>
       <slot v-for="slot in Object.keys($slots)" :name="slot" :slot="slot" />
-    </v-file-input>
+    </v-radio-group>
   </validation-provider>
 </template>
 

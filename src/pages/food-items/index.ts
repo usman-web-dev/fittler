@@ -4,9 +4,10 @@ import { FoodItem, FOOD_ITEMS } from '~/utils';
 @Component
 export default class FoodItemsView extends Vue {
   selectedFoodItems: Array<FoodItem & { quantity: number }> = [];
+  search = '';
 
   get foodItems() {
-    return FOOD_ITEMS;
+    return FOOD_ITEMS.filter(({ name }) => name.toLowerCase().includes(this.search.toLowerCase()));
   }
 
   selectFoodItem(foodItem: FoodItem) {

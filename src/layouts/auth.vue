@@ -6,7 +6,7 @@
       <v-container class="fill-height">
         <v-row justify="center" align="center">
           <v-col cols="12" sm="8" lg="6" xl="4">
-            <nuxt-link to="/" class="white--text font-weight-bold text-center text-h4 d-block mb-5">Fittler</nuxt-link>
+            <p class="white--text font-weight-bold text-center text-h4 d-block mb-5">Fittler</p>
 
             <v-slide-x-transition hide-on-leave>
               <nuxt />

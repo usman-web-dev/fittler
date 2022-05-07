@@ -1,19 +1,19 @@
 import { extend } from 'vee-validate';
-import { confirmed, email, ext, max, min, required } from 'vee-validate/dist/rules';
+import { confirmed, email, ext, max, min, numeric, required } from 'vee-validate/dist/rules';
 
 extend('required', {
   ...required,
-  message: 'This field is required.'
+  message: 'This field is required!'
 });
 
 extend('email', {
   ...email,
-  message: 'Email must be valid.'
+  message: 'Email must be valid!'
 });
 
 extend('true', {
   validate: value => value === true,
-  message: 'This is required.'
+  message: 'This is required!'
 });
 
 extend('max', {
@@ -33,5 +33,15 @@ extend('confirmed', {
 
 extend('image', {
   ...ext,
-  message: 'The file must be an image (jpg/png/jpeg)'
+  message: 'The file must be an image (jpg/png/jpeg)!'
+});
+
+extend('integer', {
+  validate: value => typeof value === 'number',
+  message: 'This field must be a number!'
+});
+
+extend('numeric', {
+  ...numeric,
+  message: 'This field must be a number (without points)!'
 });

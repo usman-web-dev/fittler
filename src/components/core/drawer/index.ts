@@ -1,11 +1,12 @@
 import { Component, Vue } from 'nuxt-property-decorator';
+import { UserModel } from '~/api/auth';
 import { drawerSrv } from '~/services';
 
 @Component
 export default class CoreDrawer extends Vue {
   drawerSrv = drawerSrv;
 
-  get currentUser() {
-    return this.$store.state.user ?? ({} as any);
+  get user(): UserModel {
+    return new UserModel({ ...this.$store.state.user });
   }
 }

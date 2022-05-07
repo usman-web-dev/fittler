@@ -1,6 +1,8 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 
-@Component
+@Component({
+  inheritAttrs: false
+})
 export default class BaseInput extends Vue {
   // Props
   @Prop({ default: '', type: String })

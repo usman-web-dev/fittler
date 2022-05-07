@@ -1,8 +1,9 @@
 import { Plugin } from '@nuxt/types';
 import { BaseApi } from '~/api';
+import { auth, UserModel } from '~/api/auth';
 import { BaseService } from '~/services';
 
-const api = {};
+const api = { auth };
 
 export type Api = typeof api;
 
@@ -19,13 +20,25 @@ declare module '@nuxt/types' {
   interface Context extends Props {}
 }
 
-const plugin: Plugin = (ctx, inject) => {
+const plugin: Plugin = async (ctx, inject) => {
+  const { $fire, store } = ctx;
+
   // Inject custom APIs.
-  BaseApi.prototype.$fire = ctx.$fire;
+  BaseApi.prototype.$fire = $fire;
   BaseApi.prototype.$context = ctx;
   BaseService.prototype.$context = ctx;
 
   inject('api', api);
+
+  $fire.auth.onAuthStateChanged(async user => {
+    let userData: UserModel | null = null;
+
+    if (user) {
+      userData = await api.auth.getProfile(user.uid);
+    }
+
+    store.commit('SET_USER', userData);
+  });
 };
 
 export default plugin;
