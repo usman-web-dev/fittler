@@ -1,5 +1,6 @@
 import { FirebaseError } from '@firebase/util';
 import { Context } from '@nuxt/types';
+import { format } from 'date-fns';
 import { FIREBASE_ERROR_MESSAGES } from '~/utils';
 
 export class Helpers {
@@ -30,6 +31,18 @@ export class Helpers {
   }
 
   handleFirebaseError(e: any) {
-    this.$context.$alert.show(FIREBASE_ERROR_MESSAGES[(e as FirebaseError).code], 'error');
+    this.$context.$alert.show(FIREBASE_ERROR_MESSAGES[(e as FirebaseError).code] ?? e.message, 'error');
+  }
+
+  getDate(date?: Date) {
+    return (date ?? new Date()).toISOString().slice(0, 10);
+  }
+
+  formatDate(date: Date) {
+    return format(date, 'do MMM');
+  }
+
+  formatDates(dates: Array<Date>) {
+    return dates.map(date => this.formatDate(date));
   }
 }

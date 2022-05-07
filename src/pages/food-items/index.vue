@@ -2,13 +2,23 @@
   <v-row justify="center">
     <v-slide-x-transition hide-on-leave>
       <v-col cols="12" lg="5">
-        <h1>Added Food Items</h1>
+        <div class="d-flex align-center flex-wrap">
+          <h1>Added Food Items</h1>
+          <base-btn
+            class="ml-5"
+            small
+            v-if="todayFoodItemsData.data.length || dataChanged"
+            :disabled="!dataChanged"
+            @click="saveData"
+            >Save</base-btn
+          >
+        </div>
 
-        <v-row v-if="selectedFoodItems.length" class="mt-8">
+        <v-row v-if="todayFoodItemsData.data.length" class="mt-8">
           <v-col
             cols="12"
-            v-for="({ name, quantity, calories, unit, id }, idx) in selectedFoodItems"
-            :key="id"
+            v-for="({ quantity, foodItem: { calories, name, unit }, foodItemId }, idx) in todayFoodItemsData.data"
+            :key="foodItemId"
             class="pa-0 pb-3"
           >
             <v-card class="shadow rounded-xl gradient" dark>
@@ -22,11 +32,33 @@
                   </span>
                 </div>
                 <div class="d-flex align-center">
-                  <v-icon @click="selectedFoodItems[idx].quantity++"> mdi-plus </v-icon>
+                  <v-icon
+                    @click="
+                      todayFoodItemsData.data[idx].quantity++;
+                      dataChanged = true;
+                    "
+                  >
+                    mdi-plus
+                  </v-icon>
                   <h3 class="mx-2 no-select">{{ quantity }}</h3>
-                  <v-icon @click="selectedFoodItems[idx].quantity--" :disabled="quantity < 2"> mdi-minus </v-icon>
+                  <v-icon
+                    @click="
+                      todayFoodItemsData.data[idx].quantity--;
+                      dataChanged = true;
+                    "
+                    :disabled="quantity < 2"
+                  >
+                    mdi-minus
+                  </v-icon>
                 </div>
-                <base-btn text color="white" @click="selectedFoodItems.splice(idx, 1)">
+                <base-btn
+                  text
+                  color="white"
+                  @click="
+                    todayFoodItemsData.data.splice(idx, 1);
+                    dataChanged = true;
+                  "
+                >
                   <v-icon>mdi-delete-outline</v-icon>Remove
                 </base-btn>
               </div>

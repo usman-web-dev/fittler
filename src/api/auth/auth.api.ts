@@ -75,8 +75,7 @@ class AuthApi extends BaseApi {
 
         if (!currPass) {
           window.$nuxt.$loading.finish();
-          this.$context.$alert.show(`Current password can't be empty.`, 'warning');
-          return;
+          throw new Error(`Current password can't be empty.`);
         }
 
         await currentUser.reauthenticateWithCredential(EmailAuthProvider.credential(email!, currPass));

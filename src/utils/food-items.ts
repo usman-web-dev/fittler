@@ -1,6 +1,6 @@
-import { FoodItem } from './types';
+import { FoodItemModel } from '~/api';
 
-export const FOOD_ITEMS: Array<FoodItem> = [
+export const FOOD_ITEMS: Array<FoodItemModel> = [
   {
     id: 1,
     name: 'Artichoke',

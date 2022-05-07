@@ -11,7 +11,6 @@ export const state = (): State => ({
 export const mutations = {
   SET_LOGGED_IN() {},
   SET_USER(state: State, user: State['user']) {
-    console.log('ahahah', user);
     state.user = { ...user } as State['user'];
   }
 };

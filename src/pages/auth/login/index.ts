@@ -13,7 +13,7 @@ export default class LoginView extends Vue {
     try {
       await this.$api.auth.login(this.loginData);
 
-      this.$router.push('/leaderboard');
+      this.$router.push('/dashboard');
     } catch (e) {
       this.$helpers.handleFirebaseError(e);
     } finally {

@@ -5,7 +5,7 @@
 <script>
 export default {
   middleware({ redirect }) {
-    redirect('/leaderboard');
+    redirect('/dashboard');
   }
 };
 </script>
