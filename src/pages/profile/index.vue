@@ -42,8 +42,11 @@
                 type="number"
               />
             </v-col>
+            <v-col cols="12" md="6" class="pr-0 pr-md-5">
+              <base-text-field v-model.number="profileData.feet" label="Feet" rules="required|integer" type="number" />
+            </v-col>
 
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="7">
               <base-radio-group
                 v-model="profileData.gender"
                 label="Gender"
@@ -55,7 +58,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="5">
               <h3>Current Photo</h3>
               <v-avatar color="grey lighten-2" size="70" class="mb-5">
                 <v-img :src="user.img" contain size="100" />

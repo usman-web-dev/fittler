@@ -29,17 +29,22 @@
             type="number"
           />
         </v-col>
+        <v-col cols="6" class="pr-5">
+          <base-text-field v-model.number="signupData.feet" label="Feet" rules="required|integer" type="number" />
+        </v-col>
+        <v-col cols="12" md="6" class="d-flex align-center">
+          <base-radio-group
+            class="m-auto"
+            v-model="signupData.gender"
+            label="Gender"
+            rules="required"
+            :items="[
+              { id: 'male', value: 'Male' },
+              { id: 'female', value: 'Female' }
+            ]"
+          />
+        </v-col>
       </v-row>
-
-      <base-radio-group
-        v-model="signupData.gender"
-        label="Gender"
-        rules="required"
-        :items="[
-          { id: 'male', value: 'Male' },
-          { id: 'female', value: 'Female' }
-        ]"
-      />
 
       <base-file-input v-model="signupData.file" label="Profile Picture" rules="image:jpg,png,jpeg" />
       <base-btn :disabled="invalid" block type="submit">Signup</base-btn>

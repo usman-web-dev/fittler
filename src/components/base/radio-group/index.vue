@@ -1,5 +1,5 @@
 <template>
-  <validation-provider :rules="rules" #default="{ errors }">
+  <validation-provider :rules="rules" #default="{ errors }" slim>
     <v-radio-group
       class="pt-0 mt-0"
       :error-messages="errors"

@@ -124,6 +124,13 @@ export default class DashboardView extends Vue {
             tension: 0.3
           }
         ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
       }
     });
 
@@ -145,6 +152,13 @@ export default class DashboardView extends Vue {
             tension: 0.3
           }
         ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
       }
     });
 

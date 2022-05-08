@@ -10,6 +10,7 @@ export class UserModel extends BaseModel {
   gender: 'male' | 'female' | null = null;
   img: string | null = null;
   inches: number | null = null;
+  feet: number | null = null;
 
   constructor(data?: Partial<UserModel>) {
     super();
