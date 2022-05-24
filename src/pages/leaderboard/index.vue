@@ -19,7 +19,7 @@
             <span>{{ item.name }}</span>
           </td>
           <td>{{ item.email }}</td>
-          <td>{{ item.caloriesBurnt }}</td>
+          <td>{{ item.caloriesBurned }}</td>
         </tr>
       </tbody>
     </v-simple-table>
@@ -43,7 +43,7 @@
             <span>{{ item.name }}</span>
           </td>
           <td>{{ item.email }}</td>
-          <td>{{ item.caloriesBurnt }}</td>
+          <td>{{ item.caloriesBurned }}</td>
         </tr>
       </tbody>
     </v-simple-table>
