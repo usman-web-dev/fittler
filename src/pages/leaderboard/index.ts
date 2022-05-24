@@ -18,15 +18,15 @@ export default class LeaderboardView extends Vue {
     return `${this.$helpers.formatDate(this.weekStart)} - ${this.$helpers.formatDate(this.weekEnd)}`;
   }
 
-  dailyLeaderboardData: Array<{ email: string; name: string; img: string; caloriesBurnt: number }> = [];
-  weeklyLeaderboardData: Array<{ email: string; name: string; img: string; caloriesBurnt: number }> = [];
+  dailyLeaderboardData: Array<{ email: string; name: string; img: string; caloriesBurned: number }> = [];
+  weeklyLeaderboardData: Array<{ email: string; name: string; img: string; caloriesBurned: number }> = [];
 
   get dailyData() {
-    return this.dailyLeaderboardData.sort(({ caloriesBurnt: a }, { caloriesBurnt: b }) => (a > b ? -1 : 1));
+    return this.dailyLeaderboardData.sort(({ caloriesBurned: a }, { caloriesBurned: b }) => (a > b ? -1 : 1));
   }
 
   get weeklyData() {
-    return this.weeklyLeaderboardData.sort(({ caloriesBurnt: a }, { caloriesBurnt: b }) => (a > b ? -1 : 1));
+    return this.weeklyLeaderboardData.sort(({ caloriesBurned: a }, { caloriesBurned: b }) => (a > b ? -1 : 1));
   }
 
   profiles: Array<UserModel> = [];
@@ -61,7 +61,7 @@ export default class LeaderboardView extends Vue {
         email: 'Anonymous',
         name: 'anonymous',
         img: DUMMY_IMAGE,
-        caloriesBurnt: data[0].caloriesBurnt
+        caloriesBurned: data[0].caloriesBurned
       };
 
       const profile = await this.getProfile(uid);
@@ -79,7 +79,7 @@ export default class LeaderboardView extends Vue {
         email: 'Anonymous',
         name: 'anonymous',
         img: DUMMY_IMAGE,
-        caloriesBurnt: data.reduce((total, { caloriesBurnt }) => total + caloriesBurnt, 0)
+        caloriesBurned: data.reduce((total, { caloriesBurned }) => total + caloriesBurned, 0)
       };
 
       const profile = await this.getProfile(uid);

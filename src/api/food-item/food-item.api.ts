@@ -92,11 +92,11 @@ class FoodItemApi extends BaseApi {
     const dateStrings = dates.map(date => this.$context.$helpers.getDate(date));
     const tempDates = structuredClone(dateStrings);
 
-    const dataFromFirestore: { [uid: string]: Array<{ date: string; caloriesBurnt: number }> } = {};
+    const dataFromFirestore: { [uid: string]: Array<{ date: string; caloriesBurned: number }> } = {};
 
     while (tempDates.length) {
       const batch = tempDates.splice(0, 10);
-      let ref = this.$fire.firestore.collection('/burnt-calories-entry').where('date', 'in', batch);
+      let ref = this.$fire.firestore.collection('/calories_burned').where('date', 'in', batch);
 
       if (forCurrentUser) {
         ref = ref.where('uid', '==', uid);
@@ -106,13 +106,20 @@ class FoodItemApi extends BaseApi {
 
       doc.forEach(doc => {
         if (doc.exists) {
-          const { caloriesBurnt, date, ...data } = doc.data() as { date: string; caloriesBurnt: number; uid: string };
+          const {
+            caloriesBurned: caloriesBurned,
+            date,
+            ...data
+          } = doc.data() as { date: string; caloriesBurned: number; uid: string };
 
           if (!dataFromFirestore[data.uid]) {
             dataFromFirestore[data.uid] = [];
           }
 
-          dataFromFirestore[data.uid].push({ caloriesBurnt, date } as { date: string; caloriesBurnt: number });
+          dataFromFirestore[data.uid].push({ caloriesBurned: caloriesBurned, date } as {
+            date: string;
+            caloriesBurned: number;
+          });
         }
       });
     }
@@ -124,7 +131,7 @@ class FoodItemApi extends BaseApi {
         }
 
         if (!dataFromFirestore[uid].find(({ date: d }) => d === date)) {
-          dataFromFirestore[uid].push({ date, caloriesBurnt: 0 });
+          dataFromFirestore[uid].push({ date, caloriesBurned: 0 });
         }
       });
     }

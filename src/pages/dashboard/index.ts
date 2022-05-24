@@ -73,7 +73,7 @@ export default class DashboardView extends Vue {
     this.todayCaloryAdded =
       dailyCaloriesAddedData[uid].find(({ date }) => date === this.$helpers.getDate())?.caloriesAdded ?? 0;
     this.todayCaloryBurnt =
-      dailyCaloriesBurntData[uid].find(({ date }) => date === this.$helpers.getDate())?.caloriesBurnt ?? 0;
+      dailyCaloriesBurntData[uid].find(({ date }) => date === this.$helpers.getDate())?.caloriesBurned ?? 0;
 
     const weeklyCaloriesAdded = weeklyDates.reduce<Array<{ calories: number; week: string }>>((weeklyDate, week) => {
       const calories = week.reduce((total, date) => {
@@ -89,15 +89,17 @@ export default class DashboardView extends Vue {
       return weeklyDate;
     }, []);
 
-    const weeklyCaloriesBurnt = weeklyDates.reduce<Array<{ caloriesBurnt: number; week: string }>>(
+    const weeklyCaloriesBurnt = weeklyDates.reduce<Array<{ caloriesBurned: number; week: string }>>(
       (weeklyDate, week) => {
-        const caloriesBurnt = week.reduce((total, date) => {
-          total += weeklyCaloriesBurntData[uid].find(({ date: d }) => d === this.$helpers.getDate(date))!.caloriesBurnt;
+        const caloriesBurned = week.reduce((total, date) => {
+          total += weeklyCaloriesBurntData[uid].find(
+            ({ date: d }) => d === this.$helpers.getDate(date)
+          )!.caloriesBurned;
           return total;
         }, 0);
 
         weeklyDate.push({
-          caloriesBurnt,
+          caloriesBurned,
           week: `${this.$helpers.formatDate(week[0])}-${this.$helpers.formatDate(week.slice(-1)[0])}`
         });
 
@@ -113,7 +115,7 @@ export default class DashboardView extends Vue {
         datasets: [
           {
             label: 'Calories Burnt',
-            data: dailyCaloriesBurntData[uid].map(({ caloriesBurnt }) => caloriesBurnt).reverse(),
+            data: dailyCaloriesBurntData[uid].map(({ caloriesBurned }) => caloriesBurned).reverse(),
             borderColor: '#5cb860',
             tension: 0.3
           },
@@ -141,7 +143,7 @@ export default class DashboardView extends Vue {
         datasets: [
           {
             label: 'Calories Burnt',
-            data: weeklyCaloriesBurnt.map(({ caloriesBurnt }) => caloriesBurnt).reverse(),
+            data: weeklyCaloriesBurnt.map(({ caloriesBurned }) => caloriesBurned).reverse(),
             borderColor: '#5cb860',
             tension: 0.3
           },
