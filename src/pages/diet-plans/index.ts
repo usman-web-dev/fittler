@@ -1,3 +1,4 @@
+import { Context } from '@nuxt/types';
 import { Component, Vue } from 'nuxt-property-decorator';
 import { DietPlanModel } from '~/api';
 
@@ -5,8 +6,12 @@ import { DietPlanModel } from '~/api';
 export default class DietPlanView extends Vue {
   data: Array<DietPlanModel> = [];
 
-  async fetch() {
-    this.data = await this.$api.dietPlan.getAll();
+  async asyncData({ $api: { dietPlan } }: Context) {
+    const data = await dietPlan.getAll();
+
+    return {
+      data
+    };
   }
 
   async deletePlan(id: string) {
@@ -14,7 +19,7 @@ export default class DietPlanView extends Vue {
 
     await this.$api.dietPlan.delete(id);
 
-    this.$fetch();
+    this.$nuxt.refresh();
 
     this.$nuxt.$loading.finish();
   }

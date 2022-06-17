@@ -1,3 +1,4 @@
+import { Context } from '@nuxt/types';
 import { Component, Vue } from 'nuxt-property-decorator';
 import { UserModel } from '~/api/auth';
 
@@ -7,15 +8,11 @@ import { UserModel } from '~/api/auth';
 export default class User extends Vue {
   users: Array<UserModel> = [];
 
-  created() {
-    this.loadData();
-  }
+  async asyncData({ $api: { auth } }: Context) {
+    const users = await auth.getAllUsers();
 
-  async loadData() {
-    this.$nextTick(async () => {
-      this.$nuxt.$loading.start();
-      this.users = (await this.$api.auth.getAllUsers()) as any;
-      this.$nuxt.$loading.finish();
-    });
+    return {
+      users
+    };
   }
 }
