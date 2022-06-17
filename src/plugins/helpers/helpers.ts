@@ -45,4 +45,8 @@ export class Helpers {
   formatDates(dates: Array<Date>) {
     return dates.map(date => this.formatDate(date));
   }
+
+  get isAdmin() {
+    return this.$context.store.state.user?.role === 'admin';
+  }
 }

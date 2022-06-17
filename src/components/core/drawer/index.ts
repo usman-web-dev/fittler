@@ -9,4 +9,8 @@ export default class CoreDrawer extends Vue {
   get user(): UserModel {
     return new UserModel({ ...this.$store.state.user });
   }
+
+  get roleLinks() {
+    return this.drawerSrv.links.filter(({ role }) => !role || role.includes(this.$store.state.user?.role));
+  }
 }

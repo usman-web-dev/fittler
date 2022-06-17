@@ -13,7 +13,7 @@
 
     <v-list dense nav>
       <v-list-item
-        v-for="{ title, icon, selectedIcon, link } in drawerSrv.links"
+        v-for="{ title, icon, selectedIcon, link } in roleLinks"
         :key="title"
         nuxt
         :to="{ name: link }"

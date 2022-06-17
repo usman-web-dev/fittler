@@ -4,6 +4,7 @@ export class UserModel extends BaseModel {
   uid!: string;
   name = '';
   email = '';
+  role = 'user';
   age: number | null = null;
   currentWeight: number | null = null;
   goalWeight: number | null = null;

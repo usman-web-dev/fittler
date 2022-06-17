@@ -1,4 +1,4 @@
-import { EmailAuthProvider } from 'firebase/auth';
+import { EmailAuthProvider, getAuth } from 'firebase/auth';
 import { DUMMY_IMAGE } from '~/utils';
 import { BaseApi } from '../base.api';
 import { LoginModel } from './login.model';
@@ -47,6 +47,35 @@ class AuthApi extends BaseApi {
     ]);
   }
 
+  // async createUser({ age, currentWeight, goalWeight, inches, email, file, gender, password, name }: SignupModel) {
+  //   const { auth } = this.$fire;
+
+  //   const user = await admin.auth().createUser({ email: email, password: password });
+  //   if (!user) {
+  //     throw new Error('Something went wrong.');
+  //   }
+
+  //   const userData = new UserModel({
+  //     uid: user.uid,
+  //     email: user.email!,
+  //     img: DUMMY_IMAGE,
+  //     name,
+  //     age,
+  //     currentWeight,
+  //     gender,
+  //     goalWeight,
+  //     inches
+  //   });
+  //   if (file) {
+  //     userData.img = await this.uploadProfilePic(file);
+  //   }
+
+  //   await this.$fire.firestore
+  //     .collection('/users')
+  //     .doc(user.uid)
+  //     .set({ ...userData });
+  // }
+
   async getProfile(uid: string) {
     const doc = await this.$fire.firestore.collection('/users').doc(uid).get();
 
@@ -57,6 +86,29 @@ class AuthApi extends BaseApi {
     return null;
   }
 
+  async update() {
+    const { currentUser } = this.$fire.auth;
+    const user = await this.$fire.firestore.collection('/users').doc(currentUser?.uid).update({ role: 'admin' });
+
+    this.$context.store.commit('SET_USER', user);
+  }
+
+  // async delete() {
+  //   const users = await this.$fire.auth.
+
+  //   users.forEach(user => {
+  //     user.ref.delete();
+  //   });
+  // }
+
+  async getAllUsers() {
+    const users = await this.$fire.firestore.collection('/users').get();
+
+    return users.docs.map(user => {
+      return user.data();
+    });
+  }
+
   async updateProfile({ name, password, file, ...profileData }: Omit<SignupModel, 'email'>) {
     const { currentUser } = this.$fire.auth;
     if (currentUser?.email) {
@@ -65,7 +117,7 @@ class AuthApi extends BaseApi {
       const userData = new UserModel({
         uid: uid,
         email: email!,
-        img: photoURL,
+
         name,
         ...profileData
       });
@@ -87,6 +139,47 @@ class AuthApi extends BaseApi {
       }
       await this.updateUserInFirestore(userData, currentUser);
     }
+  }
+  async updateUser(uid: string, data: SignupModel) {
+    const userData = new UserModel({ ...data });
+
+    await this.$fire.firestore
+      .collection('/users')
+      .doc(uid)
+      .update({ ...userData });
+
+    if (data.file) {
+      await this.uploadProfilePic(data.file);
+    }
+
+    // if (currentUser?.email) {
+    //   const { email, uid, photoURL } = currentUser;
+
+    //   const userData = new UserModel({
+    //     uid: uid,
+    //     email: email!,
+    //     img: photoURL,
+    //     name,
+    //     ...profileData
+    //   });
+
+    //   if (password) {
+    //     const currPass = prompt('Enter your current password');
+
+    //     if (!currPass) {
+    //       window.$nuxt.$loading.finish();
+    //       throw new Error(`Current password can't be empty.`);
+    //     }
+
+    //     await currentUser.reauthenticateWithCredential(EmailAuthProvider.credential(email!, currPass));
+    //     await currentUser.updatePassword(password);
+    //   }
+
+    //   if (file) {
+    //     userData.img = await this.uploadProfilePic(file);
+    //   }
+    //   await this.updateUserInFirestore(userData, currentUser);
+    // }
   }
 
   private async updateUserInFirestore(user: UserModel, currentUser: firebase.default.User) {

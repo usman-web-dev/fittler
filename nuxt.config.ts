@@ -1,8 +1,6 @@
 import { NuxtConfig } from '@nuxt/types';
 
 const config: NuxtConfig = {
-  ssr: false,
-
   head: {
     titleTemplate: '%s - Fittler',
     title: 'Fittler',
@@ -52,7 +50,23 @@ const config: NuxtConfig = {
   modules: ['@nuxtjs/firebase'],
 
   router: {
-    prefetchLinks: false
+    prefetchLinks: false,
+    extendRoutes(routes, resolve) {
+      routes.push(
+        ...[
+          {
+            name: 'diet-plans-id-edit',
+            path: '/diet-plans/:id/edit',
+            component: resolve(__dirname, 'src/pages/diet-plans/add/index.vue')
+          },
+          {
+            name: 'diet-plans-id-view',
+            path: '/diet-plans/:id/view',
+            component: resolve(__dirname, 'src/pages/diet-plans/add/index.vue')
+          }
+        ]
+      );
+    }
   },
 
   render: {
