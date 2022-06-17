@@ -1,4 +1,5 @@
 import { Plugin } from '@nuxt/types';
+import { remove, set } from 'js-cookie';
 import { auth, BaseApi, dietPlan, foodItem, UserModel } from '~/api';
 import { BaseService } from '~/services';
 
@@ -20,7 +21,10 @@ declare module '@nuxt/types' {
 }
 
 const plugin: Plugin = async (ctx, inject) => {
-  const { $fire, store } = ctx;
+  const {
+    $fire,
+    store: { commit }
+  } = ctx;
 
   // Inject custom APIs.
   BaseApi.prototype.$fire = $fire;
@@ -29,15 +33,20 @@ const plugin: Plugin = async (ctx, inject) => {
 
   inject('api', api);
 
-  $fire.auth.onAuthStateChanged(async user => {
-    let userData: UserModel | null = null;
+  if (process.client) {
+    $fire.auth.onAuthStateChanged(async user => {
+      let userData: UserModel | null = null;
 
-    if (user) {
-      userData = await api.auth.getProfile(user.uid);
-    }
+      if (user) {
+        userData = await api.auth.getProfile(user.uid);
+        set('firebaseUser', JSON.stringify(userData));
+      } else {
+        remove('firebaseUser');
+      }
 
-    store.commit('SET_USER', userData);
-  });
+      commit('SET_USER', userData);
+    });
+  }
 };
 
 export default plugin;

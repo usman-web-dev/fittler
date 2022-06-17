@@ -33,14 +33,7 @@
 
     <template #append>
       <div class="pa-3">
-        <base-btn
-          block
-          color="white primary--text"
-          @click="
-            $fire.auth.signOut();
-            $router.push('/auth/login');
-          "
-        >
+        <base-btn block color="white primary--text" @click="logout">
           Logout
           <v-icon class="ml-1" size="18">mdi-logout</v-icon>
         </base-btn>

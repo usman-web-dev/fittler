@@ -1,5 +1,5 @@
 import { Component, Vue } from 'nuxt-property-decorator';
-import { LoginModel } from '~/api/auth';
+import { LoginModel, UserModel } from '~/api/auth';
 
 @Component({
   layout: 'auth'
@@ -12,6 +12,7 @@ export default class LoginView extends Vue {
 
     try {
       await this.$api.auth.login(this.loginData);
+      this.$store.commit('SET_USER', new UserModel());
 
       this.$router.push('/dashboard');
     } catch (e) {

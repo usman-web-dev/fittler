@@ -116,6 +116,8 @@ const config: NuxtConfig = {
     }
   },
 
+  serverMiddleware: [{ path: '/firebase', handler: '~/server-middleware/firebase.ts' }],
+
   build: {
     transpile: ['vee-validate/dist/rules']
   }

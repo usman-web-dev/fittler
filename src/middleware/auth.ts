@@ -1,12 +1,12 @@
 import { Middleware } from '@nuxt/types';
 
 const auth: Middleware = ({
-  $fire: {
-    auth: { currentUser }
+  store: {
+    state: { user }
   },
   redirect
 }) => {
-  if (!currentUser) {
+  if (!user) {
     redirect('/auth/login');
   }
 };
