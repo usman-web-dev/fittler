@@ -143,12 +143,12 @@ class AuthApi extends BaseApi {
   }
 
   async forgotPassword(email: string) {
-    init('-Ak1qfkckkQArsDOV');
+    init('1FLNJ7IXpasRPDkyb');
     const { link, name } = await this.$axios.$post<{ link: string; name: string }>(
       `/firebase/users/${email}/send-reset-password-link`
     );
 
-    await send('service_hmjn73d', 'template_xh3essx', {
+    await send('service_kkk7ijc', 'template_5a50x6h', {
       to: email,
       name,
       link
