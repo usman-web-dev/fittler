@@ -31,14 +31,14 @@ class DrawerService extends BaseService {
     },
     {
       title: 'Diet Plans',
-      icon: 'mdi-account-circle-outline',
-      selectedIcon: 'mdi-account-circle',
+      icon: 'mdi-food-fork-drink',
+      selectedIcon: 'mdi-food-fork-drink',
       link: 'diet-plans'
     },
     {
       title: 'Users',
-      icon: 'mdi-account-circle-outline',
-      selectedIcon: 'mdi-account-circle',
+      icon: 'mdi-account-group-outline',
+      selectedIcon: 'mdi-account-group',
       link: 'users',
       role: [Role.ADMIN]
     }
