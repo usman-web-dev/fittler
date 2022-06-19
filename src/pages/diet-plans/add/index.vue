@@ -2,7 +2,7 @@
   <base-form #default="{ invalid }" @submit="save">
     <base-text-field v-if="!isView" label="Plan Name" v-model="dietPlan.name" rules="required|min:3" />
     <h2 v-else class="mb-5">{{ dietPlan.name }}</h2>
-    <v-expansion-panels>
+    <v-expansion-panels multiple>
       <v-expansion-panel v-for="day in days" :key="day">
         <v-expansion-panel-header>{{ $helpers.titleize(day) }}</v-expansion-panel-header>
         <v-expansion-panel-content>

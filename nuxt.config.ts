@@ -47,7 +47,7 @@ const config: NuxtConfig = {
 
   buildModules: ['@nuxt/typescript-build', '@nuxtjs/vuetify'],
 
-  modules: ['@nuxtjs/firebase'],
+  modules: ['@nuxtjs/firebase', '@nuxtjs/axios'],
 
   router: {
     prefetchLinks: false,
@@ -63,6 +63,11 @@ const config: NuxtConfig = {
             name: 'diet-plans-id-view',
             path: '/diet-plans/:id/view',
             component: resolve(__dirname, 'src/pages/diet-plans/add/index.vue')
+          },
+          {
+            name: 'users-id-edit',
+            path: '/users/:id/edit',
+            component: resolve(__dirname, 'src/pages/users/add/index.vue')
           }
         ]
       );

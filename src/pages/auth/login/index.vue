@@ -6,9 +6,9 @@
       <base-text-field v-model="loginData.password" label="Password" type="password" rules="required|min:8|max:36" />
       <base-btn :disabled="invalid" block type="submit">Login</base-btn>
     </base-form>
-    <p class="text-center ma-0 mt-5">
-      New here?
-      <nuxt-link to="/auth/signup">Signup</nuxt-link>
+    <p class="ma-0 mt-5 d-flex flex-column align-center">
+      <span> New here? <nuxt-link to="/auth/signup">Signup</nuxt-link> </span>
+      <span> Forgot Password? <nuxt-link to="/auth/forgot-password">Click here</nuxt-link> </span>
     </p>
   </v-card>
 </template>

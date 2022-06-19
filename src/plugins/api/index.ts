@@ -1,9 +1,9 @@
 import { Plugin } from '@nuxt/types';
 import { remove, set } from 'js-cookie';
-import { auth, BaseApi, dietPlan, foodItem, UserModel } from '~/api';
+import { auth, BaseApi, dietPlan, foodItem, user, UserModel } from '~/api';
 import { BaseService } from '~/services';
 
-const api = { auth, foodItem, dietPlan };
+const api = { auth, foodItem, dietPlan, user };
 
 export type Api = typeof api;
 
@@ -23,11 +23,13 @@ declare module '@nuxt/types' {
 const plugin: Plugin = async (ctx, inject) => {
   const {
     $fire,
+    $axios,
     store: { commit }
   } = ctx;
 
   // Inject custom APIs.
   BaseApi.prototype.$fire = $fire;
+  BaseApi.prototype.$axios = $axios;
   BaseApi.prototype.$context = ctx;
   BaseService.prototype.$context = ctx;
 

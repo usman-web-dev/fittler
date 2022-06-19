@@ -26,11 +26,14 @@ class DietPlanApi extends BaseApi {
     const doc = this.$fire.firestore.collection(this.endpoint).doc();
     data.id = doc.id;
 
-    return doc.set(structuredClone(data));
+    return doc.set(JSON.parse(JSON.stringify(data)));
   }
 
   async update(id: string, data: DietPlanModel) {
-    return this.$fire.firestore.collection(this.endpoint).doc(id).update(structuredClone(data));
+    return this.$fire.firestore
+      .collection(this.endpoint)
+      .doc(id)
+      .update(JSON.parse(JSON.stringify(data)));
   }
 
   async delete(id: string) {

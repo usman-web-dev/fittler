@@ -1,3 +1,4 @@
+import { init, send } from '@emailjs/browser';
 import { EmailAuthProvider } from 'firebase/auth';
 import { DUMMY_IMAGE } from '~/utils';
 import { BaseApi } from '../base.api';
@@ -10,7 +11,7 @@ class AuthApi extends BaseApi {
     return this.$fire.auth.signInWithEmailAndPassword(email, password);
   }
 
-  async signup({ age, currentWeight, goalWeight, inches, email, file, gender, password, name }: SignupModel) {
+  async signup({ email, password, file, ...data }: SignupModel) {
     const { auth } = this.$fire;
 
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
@@ -20,15 +21,10 @@ class AuthApi extends BaseApi {
     }
 
     const userData = new UserModel({
+      ...data,
+      email,
       uid: user.uid,
-      email: user.email!,
-      img: DUMMY_IMAGE,
-      name,
-      age,
-      currentWeight,
-      gender,
-      goalWeight,
-      inches
+      img: DUMMY_IMAGE
     });
 
     if (file) {
@@ -57,13 +53,6 @@ class AuthApi extends BaseApi {
     return null;
   }
 
-  async update() {
-    const { currentUser } = this.$fire.auth;
-    const user = await this.$fire.firestore.collection('/users').doc(currentUser?.uid).update({ role: 'admin' });
-
-    this.$context.store.commit('SET_USER', user);
-  }
-
   async getAllUsers() {
     const users = await this.$fire.firestore.collection('/users').get();
 
@@ -75,7 +64,7 @@ class AuthApi extends BaseApi {
   async updateProfile({ name, password, file, ...profileData }: Omit<SignupModel, 'email'>) {
     const { currentUser } = this.$fire.auth;
     if (currentUser?.email) {
-      const { email, uid, photoURL } = currentUser;
+      const { email, uid } = currentUser;
 
       const userData = new UserModel({
         uid: uid,
@@ -150,6 +139,19 @@ class AuthApi extends BaseApi {
           res(await ref.snapshot.ref.getDownloadURL());
         }
       );
+    });
+  }
+
+  async forgotPassword(email: string) {
+    init('-Ak1qfkckkQArsDOV');
+    const { link, name } = await this.$axios.$post<{ link: string; name: string }>(
+      `/firebase/users/${email}/send-reset-password-link`
+    );
+
+    await send('service_hmjn73d', 'template_xh3essx', {
+      to: email,
+      name,
+      link
     });
   }
 }

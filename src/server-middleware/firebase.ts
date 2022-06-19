@@ -1,8 +1,9 @@
 import express from 'express';
-import admin, { auth } from 'firebase-admin';
+import admin, { auth, FirebaseError } from 'firebase-admin';
 import firebaseJson from './firebase-admin.json';
 //@ts-ignore
 import cookieparser from 'cookieparser';
+import { FIREBASE_ERROR_MESSAGES } from '../utils';
 
 !admin.apps.length &&
   admin.initializeApp({
@@ -18,7 +19,9 @@ app.use((req, res, next) => {
     res.status(403).send({ error: 'Forbidden' });
   };
 
-  if (!req.headers.cookie) {
+  if (req.url.includes('send-reset-password-link')) {
+    return next();
+  } else if (!req.headers.cookie) {
     return throwError();
   }
 
@@ -26,15 +29,37 @@ app.use((req, res, next) => {
   const firebaseUser = parsed?.firebaseUser;
 
   if (!firebaseUser || JSON.parse(firebaseUser).role !== 'admin') {
-    return throwError();
+    throwError();
   } else {
     next();
   }
 });
 
-app.get('/users', async (_, res) => {
-  const { users } = await auth().listUsers();
-  res.json(users);
+app.post('/users', async ({ body }, res) => {
+  const { email, password, name } = body;
+  try {
+    const user = await auth().createUser({ email, password, displayName: name });
+    res.json(user);
+  } catch (e) {
+    res.status(500).send({ message: FIREBASE_ERROR_MESSAGES[(e as FirebaseError).code] ?? (e as any).message });
+  }
+});
+
+app.post('/users/:email/send-reset-password-link', async ({ params: { email } }, res) => {
+  try {
+    const user = await auth().getUserByEmail(email);
+    const link = await auth().generatePasswordResetLink(email, { url: process.env.APP_URL! });
+    res.send({ link, name: user.displayName });
+  } catch (e: any) {
+    res.status(500).send({ message: FIREBASE_ERROR_MESSAGES[(e as FirebaseError).code] ?? e.message });
+  }
+});
+
+app.delete('/users/:id', async (req, res) => {
+  try {
+    await auth().deleteUser(req.params.id);
+  } catch {}
+  res.send({ deleted: true });
 });
 
 export default app;

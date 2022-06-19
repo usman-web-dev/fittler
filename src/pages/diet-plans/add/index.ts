@@ -2,7 +2,9 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import { DietPlanModel } from '~/api/diet-plan/diet-plan.model';
 
 @Component({
-  middleware: 'isAdmin'
+  middleware: ({ redirect, route: { fullPath }, $helpers: { isAdmin } }) => {
+    !fullPath.includes('view') && !isAdmin && redirect('/dashboard');
+  }
 })
 export default class AddDietPlan extends Vue {
   dietPlan = new DietPlanModel();

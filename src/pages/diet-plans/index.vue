@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex justify-end my-3">
+    <div class="d-flex justify-end mb-3">
       <base-btn @click="$router.push({ name: 'diet-plans-add' })" v-if="$helpers.isAdmin">Add</base-btn>
     </div>
     <v-simple-table class="rounded-xl shadow">
@@ -23,7 +23,7 @@
               <v-list dense>
                 <v-list-item v-if="$helpers.isAdmin" :to="{ name: 'diet-plans-id-edit', params: { id } }">
                   <v-list-item-icon class="mr-3">
-                    <v-icon color="primary">mdi-pencil</v-icon>
+                    <v-icon color="success">mdi-pencil</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>Edit</v-list-item-title>
@@ -31,7 +31,7 @@
                 </v-list-item>
                 <v-list-item @click="deletePlan(id)" v-if="$helpers.isAdmin">
                   <v-list-item-icon class="mr-3">
-                    <v-icon color="primary">mdi-delete</v-icon>
+                    <v-icon color="error">mdi-delete</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>Delete</v-list-item-title>
