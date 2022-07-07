@@ -123,10 +123,6 @@ const config: NuxtConfig = {
 
   serverMiddleware: [{ path: '/firebase', handler: '~/server-middleware/firebase.ts' }],
 
-  axios: {
-    baseURL: process.env.API_URL
-  },
-
   build: {
     transpile: ['vee-validate/dist/rules']
   }

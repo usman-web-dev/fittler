@@ -2,9 +2,11 @@ import { DUMMY_IMAGE } from '~/utils';
 import { SignupModel, UserModel } from '../auth';
 import { BaseApi } from '../base.api';
 
+const config = { baseURL: process.env.NODE_ENV !== 'production' ? '' : 'https://fittler.herokuapp.com' };
+
 class UsersApi extends BaseApi {
   async create({ email, password, name, file, ...data }: SignupModel) {
-    const user = await this.$axios.$post('/firebase/users', { email, password, name });
+    const user = await this.$axios.$post(`/firebase/users`, { email, password, name }, config);
 
     if (!user) {
       throw new Error('Something went wrong.');
@@ -25,7 +27,7 @@ class UsersApi extends BaseApi {
   }
 
   async delete(id: string) {
-    await this.$axios.delete(`/firebase/users/${id}`);
+    await this.$axios.delete(`/firebase/users/${id}`, config);
     await this.$fire.firestore.collection('/users').doc(id).delete();
   }
 
