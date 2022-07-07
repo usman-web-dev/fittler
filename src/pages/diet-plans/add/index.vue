@@ -12,7 +12,7 @@
               v-if="!isView"
               :label="$helpers.titleize(meal)"
               v-model="dietPlan.meals[day][meal]"
-              rules="required|min:10"
+              rules="required|min:2"
             />
             <div :key="`text-${meal}`" v-else>
               <h3 class="d-inline-block">{{ $helpers.titleize(meal) }}</h3>

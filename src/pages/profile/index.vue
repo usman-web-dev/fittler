@@ -12,7 +12,7 @@
               <base-text-field v-model="profileData.name" label="Name" autofocus rules="required|max:30" />
             </v-col>
             <v-col cols="12" md="6">
-              <base-text-field label="Password" type="password" rules="max:36|min:8" v-model="profileData.password" />
+              <base-text-field label="Password" type="password" rules="max:18|min:8" v-model="profileData.password" />
             </v-col>
 
             <v-col cols="12" md="6" class="pr-0 pr-md-5">

@@ -8,7 +8,7 @@
 
           <v-row no-gutters>
             <v-col cols="6" class="pr-5" v-if="!uid">
-              <base-text-field v-model="user.password" label="Password" type="password" rules="required|min:8|max:36" />
+              <base-text-field v-model="user.password" label="Password" type="password" rules="required|min:8|max:18" />
             </v-col>
             <v-col cols="6" class="pr-5">
               <v-select

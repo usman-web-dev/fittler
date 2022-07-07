@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Daily Leaderboard ({{ $helpers.formatDate(new Date()) }})</h2>
+    <h2>Daily Ranking ({{ $helpers.formatDate(new Date()) }})</h2>
 
     <v-simple-table class="rounded-xl shadow">
       <thead>
@@ -24,7 +24,7 @@
       </tbody>
     </v-simple-table>
 
-    <h2 class="mt-5">Weekly Leaderboard ({{ weekDate }})</h2>
+    <h2 class="mt-5">Weekly Ranking ({{ weekDate }})</h2>
 
     <v-simple-table class="rounded-xl shadow">
       <thead>
